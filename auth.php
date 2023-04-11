@@ -90,12 +90,16 @@ return false;
 
 // Отправка SMS
 function send_sms($to, $message) {
+
+  use Twilio\Rest\Client;
+
   // Ваши учетные данные Twilio
   $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
   $auth_token = '5e9d8baca1be76c36be79df1d717df79';
 
-  // Создание клиента Twilio
-  $client = new Twilio\Rest\Client($account_sid, $auth_token);
+// Создание клиента Twilio
+$client = new Client($account_sid, $auth_token
+
 
   // Отправка SMS-сообщения
   $message = $client->messages->create(
