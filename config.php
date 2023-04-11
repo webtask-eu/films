@@ -1,41 +1,21 @@
 <?php
 
 // Параметры подключения к базе данных
-$host = 'localhost';
-$dbname = 'movie_lists';
-$username = 'username';
-$password = 'password';
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'films');
+define('DB_USER', 'films');
+define('DB_PASSWORD', '_Uf5k2y91');
 
-// Подключение к базе данных
-try {
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+// Параметры для отправки SMS через сервис SMS Gateway
+define('SMS_GATEWAY_URL', 'http://api.sms-gateway.com/v1/send');
+define('SMS_GATEWAY_TOKEN', 'your_api_token_here');
+define('SMS_GATEWAY_SENDER', 'YourApp');
 
-// Функция для выполнения запроса и получения одной строки данных
-function queryOne($sql, $params = []) {
-    global $db;
+// Язык по умолчанию
+define('DEFAULT_LANGUAGE', 'en');
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute($params);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-// Функция для выполнения запроса и получения нескольких строк данных
-function queryAll($sql, $params = []) {
-    global $db;
-
-    $stmt = $db->prepare($sql);
-    $stmt->execute($params);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Функция для выполнения запроса и получения количества строк, которые были затронуты запросом
-function query($sql, $params = []) {
-    global $db;
-
-    $stmt = $db->prepare($sql);
-    return $stmt->execute($params);
-}
+// Список поддерживаемых языков
+$SUPPORTED_LANGUAGES = array(
+    'en' => 'English',
+    'ru' => 'Русский'
+);
