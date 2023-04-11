@@ -89,17 +89,17 @@ return false;
 }
 
 // Отправка SMS
+require_once 'vendor/autoload.php'; // Подключение библиотеки Twilio
+
+use Twilio\Rest\Client;
+
 function send_sms($to, $message) {
-
-  use Twilio\Rest\Client;
-
   // Ваши учетные данные Twilio
-  $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
-  $auth_token = '5e9d8baca1be76c36be79df1d717df79';
+  $account_sid = 'YOUR_ACCOUNT_SID';
+  $auth_token = 'YOUR_AUTH_TOKEN';
 
-// Создание клиента Twilio
-$client = new Client($account_sid, $auth_token
-
+  // Создание клиента Twilio
+  $client = new Client($account_sid, $auth_token);
 
   // Отправка SMS-сообщения
   $message = $client->messages->create(
