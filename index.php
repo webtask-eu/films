@@ -5,7 +5,7 @@ session_start();
 // Подключаем файлы с функциями
 require_once 'config.php';
 require_once 'db.php';
-require_once 'utils.php';
+require_once 'functions.php';
 
 // Получаем список подборок фильмов из базы данных
 $movieLists = getMovieLists();
