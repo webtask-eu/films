@@ -1,0 +1,121 @@
+/* Стили для главного заголовка */
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Стили для формы выбора языка */
+  form {
+    margin-bottom: 2rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+  
+  button[type="submit"] {
+    margin-top: 1rem;
+  }
+  
+  /* Стили для списка подборок фильмов */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 1rem;
+  }
+  
+  li a {
+    display: block;
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    color: #666;
+  }
+  
+  li a + a {
+    margin-left: 0.5rem;
+  }
+  
+  /* Стили для кнопок редактирования и удаления */
+  li a.edit, li a.delete {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  li a.edit:hover, li a.delete:hover {
+    color: #666;
+  }
+  
+  /* Стили для кнопки создания новой подборки фильмов */
+  p a.create-movie-list {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #f00;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  p a.create-movie-list:hover {
+    background-color: #c00;
+  }
+  
+  /* Стили для кнопок входа/выхода */
+  p a.login, p a.logout {
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #333;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  p a.login:hover, p a.logout:hover {
+    background-color: #666;
+  }
+  
+  /* Медиа-запросы для разных размеров экрана */
+  @media screen and (max-width: 767px) {
+    /* Скрытие описания подборок фильмов на узких экранах */
+    li p {
+      display: none;
+    }
+  
+    /* Уменьшение размера кнопок редактирования и удаления на узких экранах */
+    li a.edit, li a.delete {
+      font-size: 0.8rem;
+    }
+  
+    /* Уменьшение размера кнопок создания новой подборки фильмов и входа/выхода на узких экранах */
+    p a.create-movie-list, p a.login, p a.logout {
+      font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+/* Уменьшение размера шрифта для списка подборок фильмов на средних экранах */
+li a {
+font-size: 1rem;
+}
+
+/* Уменьшение размера кнопок создания новой подборки фильмов и входа/выхода на средних экранах */
+p a.create-movie-list, p a.login, p a.logout {
+font-size: 1.2rem;
+}
+}  
