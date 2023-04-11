@@ -1,4 +1,15 @@
 <?php
+// Начинаем сессию
+session_start();
+
+// Подключаем файлы с функциями
+require_once 'config.php';
+require_once 'db.php';
+require_once 'utils.php';
+
+// Получаем список подборок фильмов из базы данных
+$movieLists = getMovieLists();
+
 // Получаем список языков из файлов локализации
 $languages = [
     'en' => t('english'),
@@ -26,7 +37,6 @@ $language = $_SESSION['language'] ?? 'en';
 <head>
     <meta charset="UTF-8">
     <title><?= t('movie_lists') ?></title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1><?= t('movie_lists') ?></h1>
