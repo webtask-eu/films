@@ -1,10 +1,10 @@
 <?php
 
 // Параметры подключения к базе данных
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'films');
-define('DB_USER', 'films');
-define('DB_PASSWORD', '_Uf5k2y91');
+
+const DSN = 'mysql:host=localhost;dbname=films';
+const DB_USER = 'films';
+const DB_PASSWORD = '_Uf5k2y91';
 
 // Параметры для отправки SMS через сервис SMS Gateway
 define('SMS_GATEWAY_URL', 'http://api.sms-gateway.com/v1/send');
