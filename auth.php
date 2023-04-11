@@ -105,7 +105,7 @@ function send_sms($to, $message) {
   $message = $client->messages->create(
     $to, // Номер телефона получателя
     array(
-      'from' => 'YOUR_TWILIO_NUMBER', // Номер телефона Twilio, с которого отправляется SMS
+      'from' => '+44 7897 036392', // Номер телефона Twilio, с которого отправляется SMS
       'body' => $message // Текст SMS-сообщения
     )
   );
