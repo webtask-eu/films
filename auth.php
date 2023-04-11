@@ -89,8 +89,25 @@ return false;
 }
 
 // Отправка SMS
-function send_sms($phone_number, $message) {
-// Код для отправки SMS
+function send_sms($to, $message) {
+  // Ваши учетные данные Twilio
+  $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
+  $auth_token = '5e9d8baca1be76c36be79df1d717df79';
+
+  // Создание клиента Twilio
+  $client = new Twilio\Rest\Client($account_sid, $auth_token);
+
+  // Отправка SMS-сообщения
+  $message = $client->messages->create(
+    $to, // Номер телефона получателя
+    array(
+      'from' => 'YOUR_TWILIO_NUMBER', // Номер телефона Twilio, с которого отправляется SMS
+      'body' => $message // Текст SMS-сообщения
+    )
+  );
+
+  // Возврат идентификатора SMS-сообщения
+  return $message->sid;
 }
 
 ?>
