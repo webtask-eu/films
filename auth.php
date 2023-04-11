@@ -95,8 +95,8 @@ use Twilio\Rest\Client;
 
 function send_sms($to, $message) {
   // Ваши учетные данные Twilio
-  $account_sid = 'YOUR_ACCOUNT_SID';
-  $auth_token = 'YOUR_AUTH_TOKEN';
+  $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
+  $auth_token = '5e9d8baca1be76c36be79df1d717df79';
 
   // Создание клиента Twilio
   $client = new Client($account_sid, $auth_token);
