@@ -113,5 +113,8 @@ function send_sms($to, $message) {
   // Возврат идентификатора SMS-сообщения
   return $message->sid;
 }
+function is_authenticated() {
+  return isset($_SESSION['user_id']);
+}
 
 ?>
