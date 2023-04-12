@@ -2,7 +2,7 @@
 session_start();
 require_once 'auth.php';
 
-$playlists = get_playlists(); // Функция, возвращающая список подборок из базы данных
+//$playlists = get_playlists(); // Функция, возвращающая список подборок из базы данных
 
 ?>
 
