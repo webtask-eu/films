@@ -89,44 +89,32 @@ return false;
 }
 
 // Отправка SMS
-require_once 'vendor/autoload.php'; // Подключение библиотеки Twilio
-
-use Twilio\Rest\Client;
-
-
-
 function send_sms($to, $message) {
-  try {
-    // Ваши учетные данные Twilio
-    $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
-    $auth_token = '59c2786adbf6179f8444ada5f9338f98';
+  require_once 'vendor/autoload.php';
 
-    // Создание клиента Twilio
-    $client = new Client($account_sid, $auth_token);
+  // Ключ доступа к сервису apilayer
+  $apilayer_access_key = 'your_apilayer_access_key';
 
-    // Отправка SMS-сообщения
-    $message = $client->messages->create(
-      $to, // Номер телефона получателя
-      array(
-        'from' => '+447897036392', // Номер телефона Twilio, с которого отправляется SMS
-        'body' => $message // Текст SMS-сообщения
-      )
-    );
+  // Создаем клиент apilayer
+  $client = new \Ipapi\Apilayer\Client($apilayer_access_key);
 
-    // Возврат идентификатора SMS-сообщения
-    return $message->sid;
+  // Отправляем SMS сообщение
+  $response = $client->sms()->send([
+    'to' => $to, // Номер получателя
+    'text' => $message // Текст сообщения
+  ]);
 
-  } catch (TwilioException $e) {
-    // Обработка ошибки TwilioException
-    error_log('Twilio error: ' . $e->getMessage());
-  //  return false;
-
-  } catch (Exception $e) {
-    // Обработка других ошибок
-    error_log('Error: ' . $e->getMessage());
-   // return false;
+  // Проверяем, что SMS успешно отправлено
+  if ($response['success']) {
+    // Возвращаем идентификатор сообщения
+    return $response['message_id'];
+  } else {
+    // Если при отправке SMS возникла ошибка, выводим ее в консоль и возвращаем false
+    error_log('apilayer error: ' . $response['error']['info']);
+    return false;
   }
 }
+
 
 
 function is_authenticated() {
