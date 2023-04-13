@@ -88,35 +88,6 @@ return false;
 }
 }
 
-// Отправка SMS
-function send_sms($to, $message) {
-  require_once 'vendor/autoload.php';
-
-  // Ключ доступа к сервису apilayer
-  $apilayer_access_key = 'EF4GnPboaGa6zdLKLQP5HamiwTVewT39';
-
-  // Создаем клиент apilayer
-  $client = new \Ipapi\Apilayer\Client($apilayer_access_key);
-
-  // Отправляем SMS сообщение
-  $response = $client->sms()->send([
-    'to' => $to, // Номер получателя
-    'text' => $message // Текст сообщения
-  ]);
-
-  // Проверяем, что SMS успешно отправлено
-  if ($response['success']) {
-    // Возвращаем идентификатор сообщения
-    return $response['message_id'];
-  } else {
-    // Если при отправке SMS возникла ошибка, выводим ее в консоль и возвращаем false
-    error_log('apilayer error: ' . $response['error']['info']);
-    return false;
-  }
-}
-
-
-
 function is_authenticated() {
   return isset($_SESSION['user_id']);
 }
