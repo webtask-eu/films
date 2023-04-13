@@ -119,12 +119,12 @@ function send_sms($to, $message) {
   } catch (TwilioException $e) {
     // Обработка ошибки TwilioException
     error_log('Twilio error: ' . $e->getMessage());
-    return false;
+  //  return false;
 
   } catch (Exception $e) {
     // Обработка других ошибок
     error_log('Error: ' . $e->getMessage());
-    return false;
+   // return false;
   }
 }
 
