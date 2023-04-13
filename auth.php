@@ -93,7 +93,7 @@ function send_sms($to, $message) {
   require_once 'vendor/autoload.php';
 
   // Ключ доступа к сервису apilayer
-  $apilayer_access_key = 'your_apilayer_access_key';
+  $apilayer_access_key = 'EF4GnPboaGa6zdLKLQP5HamiwTVewT39';
 
   // Создаем клиент apilayer
   $client = new \Ipapi\Apilayer\Client($apilayer_access_key);
