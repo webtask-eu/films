@@ -96,7 +96,7 @@ use Twilio\Rest\Client;
 function send_sms($to, $message) {
   // Ваши учетные данные Twilio
   $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
-  $auth_token = '5e9d8baca1be76c36be79df1d717df79';
+  $auth_token = '59c2786adbf6179f8444ada5f9338f98';
 
   // Создание клиента Twilio
   $client = new Client($account_sid, $auth_token);
@@ -105,7 +105,7 @@ function send_sms($to, $message) {
   $message = $client->messages->create(
     $to, // Номер телефона получателя
     array(
-      'from' => '+44 7897 036392', // Номер телефона Twilio, с которого отправляется SMS
+      'from' => '+447897036392', // Номер телефона Twilio, с которого отправляется SMS
       'body' => $message // Текст SMS-сообщения
     )
   );
