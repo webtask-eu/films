@@ -43,59 +43,50 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>My Movies Collection</title>
+    <title>Movies Collection - Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        .card {
-            margin-bottom: 20px;
-        }
-        .card-header {
-            font-size: 20px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Register or Login</div>
-                    <div class="card-body">
-                        <a href="register.php" class="btn btn-primary">Register</a>
-                        <a href="login.php" class="btn btn-secondary">Login</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">Users with collections</div>
-                    <div class="card-body">
-                        <?php
-                        require_once 'controller.php';
-
-                        $controller = new Controller();
-
-                        $collections = $controller->getUserCollectionsList();
-                        if (count($collections) > 0) {
-                            echo '<ul class="list-group">';
-                            foreach ($collections as $collection) {
-                                echo '<li class="list-group-item">';
-                                echo '<a href="collection.php?id=' . $collection['id'] . '">' . $collection['title'] . '</a>';
-                                echo '</li>';
-                            }
-                            echo '</ul>';
-                        } else {
-                            echo '<p>No collections found</p>';
-                        }
-                        ?>
-                    </div>
-                </div>
+        <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Register</h2>
+                <p>If you don't have an account yet, please register to start creating your own collections of favorite movies:</p>
+                <p><a href="register.php" class="btn btn-primary">Register</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Login</h2>
+                <p>If you already have an account, please login:</p>
+                <p><a href="login.php" class="btn btn-primary">Login</a></p>
             </div>
         </div>
+        <h2 class="mt-3">Collections</h2>
+        <?php
+        require_once 'controller.php';
+
+        $controller = new Controller();
+
+        // Получаем список коллекций
+        $collections = $controller->getUserCollections($_SESSION['user_id']);
+
+        if ($collections !== false && count($collections) > 0) {
+            // Выводим список коллекций
+            echo '<ul>';
+            foreach ($collections as $collection) {
+                echo '<li><a href="collection.php?id=' . $collection['id'] . '">' . htmlspecialchars($collection['title']) . '</a></li>';
+            }
+            echo '</ul>';
+        } else {
+            echo '<p>You have no collections yet.</p>';
+        }
+        ?>
     </div>
 </body>
 </html>
+
 
 
