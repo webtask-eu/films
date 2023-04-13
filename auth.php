@@ -93,26 +93,42 @@ require_once 'vendor/autoload.php'; // Подключение библиотек
 
 use Twilio\Rest\Client;
 
+
+
 function send_sms($to, $message) {
-  // Ваши учетные данные Twilio
-  $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
-  $auth_token = '59c2786adbf6179f8444ada5f9338f98';
+  try {
+    // Ваши учетные данные Twilio
+    $account_sid = 'AC8a1e257f19c0c0220422ffaf4410190a';
+    $auth_token = '59c2786adbf6179f8444ada5f9338f98';
 
-  // Создание клиента Twilio
-  $client = new Client($account_sid, $auth_token);
+    // Создание клиента Twilio
+    $client = new Client($account_sid, $auth_token);
 
-  // Отправка SMS-сообщения
-  $message = $client->messages->create(
-    $to, // Номер телефона получателя
-    array(
-      'from' => '+447897036392', // Номер телефона Twilio, с которого отправляется SMS
-      'body' => $message // Текст SMS-сообщения
-    )
-  );
+    // Отправка SMS-сообщения
+    $message = $client->messages->create(
+      $to, // Номер телефона получателя
+      array(
+        'from' => '+447897036392', // Номер телефона Twilio, с которого отправляется SMS
+        'body' => $message // Текст SMS-сообщения
+      )
+    );
 
-  // Возврат идентификатора SMS-сообщения
-  return $message->sid;
+    // Возврат идентификатора SMS-сообщения
+    return $message->sid;
+
+  } catch (TwilioException $e) {
+    // Обработка ошибки TwilioException
+    error_log('Twilio error: ' . $e->getMessage());
+    return false;
+
+  } catch (Exception $e) {
+    // Обработка других ошибок
+    error_log('Error: ' . $e->getMessage());
+    return false;
+  }
 }
+
+
 function is_authenticated() {
   return isset($_SESSION['user_id']);
 }
