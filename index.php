@@ -52,6 +52,7 @@ if (isset($_POST['login'])) {
 <body>
     <div class="container">
         <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
+        <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
         <div class="row">
             <div class="col-md-6">
                 <h2>Register</h2>
