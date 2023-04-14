@@ -60,8 +60,9 @@ if (isset($_POST['login'])) {
 ?>
 
 <?php
-// Подключаем файл локализации для текущего языка
-$messages = include('lang/' . $lang . '.php');
+$lang = 'en'; // текущий язык
+$localization = include('lang/' . $lang . '.php');
+
 
 // Используем фразы из файла локализации
 echo $messages['welcome_message'];
