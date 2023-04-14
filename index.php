@@ -45,6 +45,8 @@ if (isset($_POST['login'])) {
 
 <?php 
 
+// Определение текущего языка (по умолчанию английский)
+
 // Получаем язык браузера
 $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 echo $browser_lang;
@@ -60,8 +62,7 @@ if (in_array($browser_lang, $supported_langs)) {
   $lang = 'en';
 }
 
-// Определение текущего языка (по умолчанию латышский)
-$lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
+
 /*
 // Загрузка файла локализации
 $lang_file = 'lang/' . $lang . '.php';
