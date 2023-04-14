@@ -52,6 +52,12 @@ if (isset($_POST['login'])) {
     }
 }
 
+$langs = array(
+  'lv' => 'Latviski',
+  'ru' => 'Русский',
+  'en' => 'English'
+);
+
 ?>
 
 <!DOCTYPE html>
