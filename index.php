@@ -57,10 +57,17 @@ if (isset($_POST['login'])) {
         $error = $result;
     }
 }
-
-
-
 ?>
+
+<?php
+$lang = 'en'; // текущий язык
+$localization = include('lang/' . $lang . '.php');
+
+foreach ($localization as $key => $value) {
+  echo $key . ' => ' . $value . '<br>';
+}
+?>
+
 
 <html>
 <head>
