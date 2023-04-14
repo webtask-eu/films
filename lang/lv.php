@@ -1,15 +1,14 @@
 <?php
 return array(
-  'nav_home' => 'Sākums',
-  'nav_create' => 'Izveidot kolekciju',
-  'nav_my_collections' => 'Manas kolekcijas',
-  'nav_favorites' => 'Izlase',
-  'nav_about' => 'Par projektu',
-  'login' => 'Ienākt',
-  'register' => 'Reģistrēties',
-  'welcome' => 'Laipni lūgti Movies Collection!',
-  'intro' => 'Uz šīs vietnes Jūs varat izveidot savas iecienītāko filmu kolekcijas un dalīties ar tām ar citiem.',
-  'collections' => 'Kolekcijas',
-  'no_collections' => 'Jums vēl nav neviena kolekcija.'
+  'menu_create_collection' => 'Izveidot kolekciju',
+  'menu_my_collections' => 'Manas kolekcijas',
+  'menu_favorites' => 'Izlase',
+  'menu_about' => 'Par projektu',
+  'menu_login' => 'Ieiet',
+  'menu_register' => 'Reģistrācija',
+  'welcome_message' => 'Laipni lūdzam Movies Collection!',
+  'website_description' => 'Šajā vietnē jūs varat izveidot savas iecienītāko filmu kolekcijas un dalīties ar tām ar citiem.',
+  'collections_title' => 'Kolekcijas',
+  'no_collections_message' => 'Jums vēl nav izveidotas kolekcijas.',
 );
 ?>
