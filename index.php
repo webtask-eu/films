@@ -45,23 +45,28 @@ if (isset($_POST['login'])) {
 
 <?php 
 
-// Определение текущего языка (по умолчанию язык браузера)
-// Получаем язык браузера
-$lang = isset($_GET['lang']) ? $_GET['lang'] : 
-$browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);;
-
-echo $browser_lang;
-// Массив поддерживаемых языков
-$supported_langs = ['en', 'ru', 'lv'];
-
-// Проверяем, поддерживается ли язык браузера
-if (in_array($browser_lang, $supported_langs)) {
-  // Используем язык браузера
-  $lang = $browser_lang;
+// Определение текущего языка (по умолчанию латышский)
+if (isset($_GET['lang'])) {
+  $lang = $_GET['lang'];
 } else {
-  // Используем язык по умолчанию
-  $lang = 'en';
+
+    // Получаем язык браузера
+  $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+  echo $browser_lang;
+  // Массив поддерживаемых языков
+  $supported_langs = ['en', 'ru', 'lv'];
+
+  // Проверяем, поддерживается ли язык браузера
+  if (in_array($browser_lang, $supported_langs)) {
+    // Используем язык браузера
+    $lang = $browser_lang;
+  } else {
+    // Используем язык по умолчанию
+    $lang = 'en';
+  }
 }
+
+
 
 
 /*
