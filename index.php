@@ -60,15 +60,6 @@ if (isset($_POST['login'])) {
 ?>
 
 <?php
-$lang = 'en'; // текущий язык
-$localization = include('lang/' . $lang . '.php');
-
-echo $localization['welcome_message'];
-
-foreach ($localization as $key => $value) {
-  echo $key . ' => ' . $value . '<br>';
-}
-
 foreach ($localization as $key => $value) {
   $$key = $value;
 }
