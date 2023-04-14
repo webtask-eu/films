@@ -50,26 +50,35 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Movies Collection</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <?php
+                // Показываем кнопки входа и регистрации, если пользователь не авторизован
+                if (!isset($_SESSION['user_id'])) {
+                    echo '<li class="nav-item"><a class="nav-link" href="login.php" style="background-color: green; color: white;">Login</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
+                }
+                // Показываем кнопку выхода, если пользователь авторизован
+                else {
+                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
+                }
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.php">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-3">
         <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
         <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Register</h2>
-                <p>If you don't have an account yet, please register to start creating your own collections of favorite movies:</p>
-                <p><a href="register.php" class="btn btn-primary">Register</a></p>
-            </div>
-            <div class="col-md-6">
-                <h2>Login</h2>
-                <p>If you already have an account, please login:</p>
-                <p><a href="login.php" class="btn btn-primary">Login</a></p>
-            </div>
-        </div>
         <h2 class="mt-3">Collections</h2>
         <?php
-        require_once 'controller.php';
-
-        $controller = new Controller();
 
         // Получаем список коллекций
         $collections = $controller->getUserCollections($_SESSION['user_id']);
@@ -88,6 +97,7 @@ if (isset($_POST['login'])) {
     </div>
 </body>
 </html>
+
 
 
 
