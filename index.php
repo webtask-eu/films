@@ -53,14 +53,13 @@ if (isset($_POST['login'])) {
 }
 
 $langs = array(
-  'lv' => 'Latviski',
-  'ru' => 'Русский',
-  'en' => 'English'
+  'lv' => 'LV',
+  'ru' => 'RU',
+  'en' => 'EN'
 );
 
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -74,65 +73,65 @@ $langs = array(
       <a href="/"><img src="logo.png" alt="Movies Collection"></a>
     </div>
     <nav class="navbar">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Создать коллекцию</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Мои коллекции</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Избранное</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">О проекте</a>
-    </li>
-  </ul>
-  <ul class="navbar-nav ml-auto">
-    <?php foreach ($langs as $code => $name) {
-      if ($code !== $lang) { ?>
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="?lang=<?= $code ?>" class="nav-link"><?= $name ?></a>
+          <a class="nav-link" href="#"><?php echo $menu_create_collection; ?></a>
         </li>
-      <?php }
-    } ?>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Вход</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Регистрация</a>
-    </li>
-  </ul>
-</nav>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php echo $menu_my_collections; ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php echo $menu_favorites; ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php echo $menu_about; ?></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <?php foreach ($langs as $code => $name) {
+          if ($code !== $lang) { ?>
+            <li class="nav-item">
+              <a href="?lang=<?= $code ?>" class="nav-link"><?= $name ?></a>
+            </li>
+          <?php }
+        } ?>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> <?php echo $menu_login; ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> <?php echo $menu_register; ?></a>
+        </li>
+      </ul>
+    </nav>
 
   </div>
 </div>
 
-    <div class="container mt-3">
-        <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
-        <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
-        <h2 class="mt-3">Collections</h2>
-        <?php
-        require_once 'controller.php';
+<div class="container mt-3">
+  <h1 class="mt-3 mb-3"><?php echo $welcome_message; ?></h1>
+  <p><?php echo $website_description; ?></p>
+  <h2 class="mt-3"><?php echo $collections_title; ?></h2>
+  <?php
+    require_once 'controller.php';
+    $controller = new Controller();
 
-        $controller = new Controller();
+    // Получаем список коллекций
+    $collections = $controller->getUserCollections($_SESSION['user_id']);
 
-        // Получаем список коллекций
-        $collections = $controller->getUserCollections($_SESSION['user_id']);
+    if ($collections !== false && count($collections) > 0) {
+      // Выводим список коллекций
+      echo '<ul>';
+      foreach ($collections as $collection) {
+        echo '<li><a href="collection.php?id=' . $collection['id'] . '">' . htmlspecialchars($collection['title']) . '</a></li>';
+      }
+      echo '</ul>';
+    } else {
+      echo '<p>' . $no_collections_message . '</p>';
+    }
+  ?>
+</div>
 
-        if ($collections !== false && count($collections) > 0) {
-            // Выводим список коллекций
-            echo '<ul>';
-            foreach ($collections as $collection) {
-                echo '<li><a href="collection.php?id=' . $collection['id'] . '">' . htmlspecialchars($collection['title']) . '</a></li>';
-            }
-            echo '</ul>';
-        } else {
-            echo '<p>You have no collections yet.</p>';
-        }
-        ?>
-    </div>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
 
