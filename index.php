@@ -24,22 +24,6 @@ if (isset($_POST['register'])) {
         $error = $result;
     }
 
-    $langs = array(
-      'lv' => 'LV',
-      'ru' => 'RU',
-      'en' => 'EN'
-    );    
-
-    // Определение текущего языка (по умолчанию латышский)
-$lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
-
-// Загрузка файла локализации
-$lang_file = 'lang/' . $lang . '.php';
-if (file_exists($lang_file)) {
-  $lang_strings = include $lang_file;
-} else {
-  $lang_strings = include 'lang/lv.php';
-}
 
 }
 
@@ -60,7 +44,28 @@ if (isset($_POST['login'])) {
 ?>
 
 <?php
-foreach ($lang_file as $key => $value) {
+
+$langs = array(
+  'lv' => 'LV',
+  'ru' => 'RU',
+  'en' => 'EN'
+);    
+
+// Определение текущего языка (по умолчанию латышский)
+$lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
+/*
+// Загрузка файла локализации
+$lang_file = 'lang/' . $lang . '.php';
+if (file_exists($lang_file)) {
+$lang_strings = include $lang_file;
+} else {
+$lang_strings = include 'lang/lv.php';
+}
+*/
+//$lang = 'en'; // текущий язык
+$localization = include('lang/' . $lang . '.php');
+
+foreach ($localization as $key => $value) {
   $$key = $value;
 }
 ?>
