@@ -24,6 +24,12 @@ if (isset($_POST['register'])) {
         $error = $result;
     }
 
+    $langs = array(
+      'lv' => 'LV',
+      'ru' => 'RU',
+      'en' => 'EN'
+    );    
+
     // Определение текущего языка (по умолчанию латышский)
 $lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
 
@@ -52,11 +58,7 @@ if (isset($_POST['login'])) {
     }
 }
 
-$langs = array(
-  'lv' => 'LV',
-  'ru' => 'RU',
-  'en' => 'EN'
-);
+
 
 ?>
 
