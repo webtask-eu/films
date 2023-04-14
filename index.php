@@ -50,20 +50,35 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="navbar">
-  <a href="/" class="navbar-brand">
-    <img src="https://i.ss.com/img/p.gif" alt="Movies Collection Logo">
-    <h1>Movies Collection</h1>
-  </a>
-  <div class="navbar-links">
-    <a href="/work/are-required/new/" class="menu_main a_menu_active">Create Collection</a>
-    <a href="/login/" class="menu_main a_menu">My Collections</a>
-    <a href="/work/are-required/autohouse-painter/search/" class="menu_main a_menu">Search</a>
-    <a href="/favorites/" class="menu_main a_menu">Bookmarks</a>
-  </div>
-  <div class="navbar-lang">
-    <a href="/lv/login/?uri=/ru/work/are-required/autohouse-painter/new-step-1/&mode=login" class="a_menu">LV</a>
-    <a href="/en/login/?uri=/ru/work/are-required/autohouse-painter/new-step-1/&mode=login" class="a_menu">EN</a>
+<div class="page-header">
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img src="logo.png" alt="Movies Collection"></a>
+    </div>
+    <nav class="navbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Создать коллекцию</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Мои коллекции</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Избранное</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">О проекте</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Вход</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Регистрация</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 
