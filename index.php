@@ -68,6 +68,10 @@ echo $localization['welcome_message'];
 foreach ($localization as $key => $value) {
   echo $key . ' => ' . $value . '<br>';
 }
+
+foreach ($localization as $key => $value) {
+  $$key = $value;
+}
 ?>
 
 
