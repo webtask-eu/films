@@ -60,12 +60,12 @@ if (isset($_POST['login'])) {
                 <?php
                 // Показываем кнопки входа и регистрации, если пользователь не авторизован
                 if (!isset($_SESSION['user_id'])) {
-                    echo '<li class="nav-item"><a class="nav-link" href="login.php" style="background-color: green; color: white;">Login</a></li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link btn btn-primary" href="login.php">Login</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link btn btn-secondary" href="register.php">Register</a></li>';
                 }
                 // Показываем кнопку выхода, если пользователь авторизован
                 else {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link btn btn-danger" href="logout.php">Logout</a></li>';
                 }
                 ?>
                 <li class="nav-item">
