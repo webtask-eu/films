@@ -50,30 +50,23 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">Movies Collection</a>
-            <div class="navbar-links">
-                <?php
-                // Показываем кнопки входа и регистрации, если пользователь не авторизован
-                if (!isset($_SESSION['user_id'])) {
-                    echo '<a href="login.php" class="btn btn-primary">Login</a>';
-                    echo '<a href="register.php" class="btn btn-secondary">Register</a>';
-                }
-                // Показываем кнопку выхода, если пользователь авторизован
-                else {
-                    echo '<a href="logout.php" class="btn btn-danger">Logout</a>';
-                }
-                ?>
-                <a href="about.php">About</a>
-            </div>
-            <button class="navbar-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+<div class="navbar">
+  <a href="/" class="navbar-brand">
+    <img src="https://i.ss.com/img/p.gif" alt="Movies Collection Logo">
+    <h1>Movies Collection</h1>
+  </a>
+  <div class="navbar-links">
+    <a href="/work/are-required/new/" class="menu_main a_menu_active">Create Collection</a>
+    <a href="/login/" class="menu_main a_menu">My Collections</a>
+    <a href="/work/are-required/autohouse-painter/search/" class="menu_main a_menu">Search</a>
+    <a href="/favorites/" class="menu_main a_menu">Bookmarks</a>
+  </div>
+  <div class="navbar-lang">
+    <a href="/lv/login/?uri=/ru/work/are-required/autohouse-painter/new-step-1/&mode=login" class="a_menu">LV</a>
+    <a href="/en/login/?uri=/ru/work/are-required/autohouse-painter/new-step-1/&mode=login" class="a_menu">EN</a>
+  </div>
+</div>
+
     <div class="container mt-3">
         <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
         <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
