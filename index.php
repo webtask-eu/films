@@ -68,35 +68,46 @@ if (isset($_POST['login'])) {
                     echo '<li class="nav-item"><a class="nav-link btn btn-danger" href="logout.php">Logout</a></li>';
                 }
                 ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.php">About</a>
-                </li>
             </ul>
         </div>
     </nav>
     <div class="container mt-3">
-        <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
-        <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
-        <h2 class="mt-3">Collections</h2>
-        <?php
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">About</div>
+                    <div class="card-body">
+                        <p class="card-text">Learn more about Movies Collection.</p>
+                        <a href="about.php" class="btn btn-outline-light">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h1 class="mt-3 mb-3">Welcome to Movies Collection!</h1>
+                <p>On this website, you can create your own collections of favorite movies and share them with others.</p>
+                <h2 class="mt-3">Collections</h2>
+                <?php
 
-        // Получаем список коллекций
-        $collections = $controller->getUserCollections($_SESSION['user_id']);
+                // Получаем список коллекций
+                $collections = $controller->getUserCollections($_SESSION['user_id']);
 
-        if ($collections !== false && count($collections) > 0) {
-            // Выводим список коллекций
-            echo '<ul>';
-            foreach ($collections as $collection) {
-                echo '<li><a href="collection.php?id=' . $collection['id'] . '">' . htmlspecialchars($collection['title']) . '</a></li>';
-            }
-            echo '</ul>';
-        } else {
-            echo '<p>You have no collections yet.</p>';
-        }
-        ?>
+                if ($collections !== false && count($collections) > 0) {
+                    // Выводим список коллекций
+                    echo '<ul>';
+                    foreach ($collections as $collection) {
+                        echo '<li><a href="collection.php?id=' . $collection['id'] . '">' . htmlspecialchars($collection['title']) . '</a></li>';
+                    }
+                    echo '</ul>';
+                } else {
+                    echo '<p>You have no collections yet.</p>';
+                }
+                ?>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
 
 
 
