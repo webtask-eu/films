@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
 
 // Получаем язык браузера
 $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
+echo $browser_lang;
 // Массив поддерживаемых языков
 $supported_langs = ['en', 'ru', 'lv'];
 
