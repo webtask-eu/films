@@ -23,6 +23,18 @@ if (isset($_POST['register'])) {
         // Если при регистрации возникла ошибка, выводим ее на экран
         $error = $result;
     }
+
+    // Определение текущего языка (по умолчанию латышский)
+$lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
+
+// Загрузка файла локализации
+$lang_file = 'lang/' . $lang . '.php';
+if (file_exists($lang_file)) {
+  $lang_strings = include $lang_file;
+} else {
+  $lang_strings = include 'lang/lv.php';
+}
+
 }
 
 // Обработка авторизации
@@ -56,29 +68,37 @@ if (isset($_POST['login'])) {
       <a href="/"><img src="logo.png" alt="Movies Collection"></a>
     </div>
     <nav class="navbar">
-      <ul class="navbar-nav">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Создать коллекцию</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Мои коллекции</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Избранное</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">О проекте</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <?php foreach ($langs as $code => $name) {
+      if ($code !== $lang) { ?>
         <li class="nav-item">
-          <a class="nav-link" href="#">Создать коллекцию</a>
+          <a href="?lang=<?= $code ?>" class="nav-link"><?= $name ?></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Мои коллекции</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Избранное</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">О проекте</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Вход</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Регистрация</a>
-        </li>
-      </ul>
-    </nav>
+      <?php }
+    } ?>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Вход</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Регистрация</a>
+    </li>
+  </ul>
+</nav>
+
   </div>
 </div>
 
