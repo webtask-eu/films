@@ -63,3 +63,24 @@
     }
   }
   
+  /* Загрузка шрифта "Roboto" */
+@font-face {
+  font-family: "Roboto";
+  src: url("Roboto-Regular.ttf") format("truetype");
+}
+
+/* Использование шрифта "Roboto" для заголовков */
+h1, h2, h3 {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Загрузка шрифта "Lato" */
+@font-face {
+  font-family: "Lato";
+  src: url("Lato-Regular.ttf") format("truetype");
+}
+
+/* Использование шрифта "Lato" для основного текста */
+body {
+  font-family: "Lato", sans-serif;
+}
