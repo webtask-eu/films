@@ -43,13 +43,22 @@ if (isset($_POST['login'])) {
 }
 ?>
 
-<?php
+<?php 
 
-$langs = array(
-  'lv' => 'LV',
-  'ru' => 'RU',
-  'en' => 'EN'
-);    
+// Получаем язык браузера
+$browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+// Массив поддерживаемых языков
+$supported_langs = ['en', 'ru', 'lv'];
+
+// Проверяем, поддерживается ли язык браузера
+if (in_array($browser_lang, $supported_langs)) {
+  // Используем язык браузера
+  $lang = $browser_lang;
+} else {
+  // Используем язык по умолчанию
+  $lang = 'en';
+}
 
 // Определение текущего языка (по умолчанию латышский)
 $lang = isset($_GET['lang']) ? $_GET['lang'] : 'lv';
@@ -68,6 +77,12 @@ $localization = include('lang/' . $lang . '.php');
 foreach ($localization as $key => $value) {
   $$key = $value;
 }
+
+$langs = array(
+  'lv' => 'LV',
+  'ru' => 'RU',
+  'en' => 'EN'
+);   
 ?>
 
 
