@@ -90,14 +90,15 @@ if (isset($_POST['login'])) {
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <?php foreach ($langs as $code => $name) {
-          if ($code !== $lang) { ?>
-            <li class="nav-item">
-              <a href="?lang=<?= $code ?>" class="nav-link"><?= $name ?></a>
-            </li>
-          <?php }
-        } ?>
-        <li class="nav-item">
+      <?php if (is_array($langs)) {
+  foreach ($langs as $code => $name) {
+    if ($code !== $lang) { ?>
+      <li class="nav-item">
+        <a href="?lang=<?= $code ?>" class="nav-link"><?= $name ?></a>
+      </li>
+    <?php }
+  }
+} ?>        <li class="nav-item">
           <a class="nav-link" href="#"> <?php echo $menu_login; ?></a>
         </li>
         <li class="nav-item">
