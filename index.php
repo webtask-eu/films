@@ -63,7 +63,7 @@ if (isset($_POST['login'])) {
 $lang = 'en'; // текущий язык
 $localization = include('lang/' . $lang . '.php');
 
-echo $messages['welcome_message'];
+echo $localization['welcome_message'];
 
 foreach ($localization as $key => $value) {
   echo $key . ' => ' . $value . '<br>';
