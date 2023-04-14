@@ -47,35 +47,31 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>Movies Collection - Home</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">Movies Collection</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto mr-auto">
-                    <?php
-                    // Показываем кнопки входа и регистрации, если пользователь не авторизован
-                    if (!isset($_SESSION['user_id'])) {
-                        echo '<li class="nav-item mr-2"><a class="nav-link btn btn-primary" href="login.php">Login</a></li>';
-                        echo '<li class="nav-item"><a class="nav-link btn btn-secondary" href="register.php">Register</a></li>';
-                    }
-                    // Показываем кнопку выхода, если пользователь авторизован
-                    else {
-                        echo '<li class="nav-item mr-2"><a class="nav-link btn btn-danger" href="logout.php">Logout</a></li>';
-                    }
-                    ?>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.php">About</a>
-                    </li>
-                </ul>
+            <div class="navbar-links">
+                <?php
+                // Показываем кнопки входа и регистрации, если пользователь не авторизован
+                if (!isset($_SESSION['user_id'])) {
+                    echo '<a href="login.php" class="btn btn-primary">Login</a>';
+                    echo '<a href="register.php" class="btn btn-secondary">Register</a>';
+                }
+                // Показываем кнопку выхода, если пользователь авторизован
+                else {
+                    echo '<a href="logout.php" class="btn btn-danger">Logout</a>';
+                }
+                ?>
+                <a href="about.php">About</a>
             </div>
+            <button class="navbar-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
     <div class="container mt-3">
@@ -102,8 +98,10 @@ if (isset($_POST['login'])) {
         }
         ?>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
