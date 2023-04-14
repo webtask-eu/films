@@ -60,7 +60,7 @@ if (isset($_POST['login'])) {
 ?>
 
 <?php
-foreach ($localization as $key => $value) {
+foreach ($lang_file as $key => $value) {
   $$key = $value;
 }
 ?>
