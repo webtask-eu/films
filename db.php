@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+
 class DB {
     private $connection;
     private $last_insert_id;
