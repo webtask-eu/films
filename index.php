@@ -132,7 +132,7 @@ $langs = array(
           <a class="nav-link" href="#"> <?php echo $menu_login; ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"> <?php echo $menu_register; ?></a>
+          <a class="nav-link" href="/register.php"> <?php echo $menu_register; ?></a>
         </li>
       </ul>
     </nav>
