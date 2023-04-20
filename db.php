@@ -28,7 +28,6 @@ class DB {
 
     public function query($query, $params = array()) {
 
-        echo $query;
         // Подготавливаем запрос с помощью подготовленных выражений
         $statement = $this->connection->prepare($query);
         if (!$statement) {
