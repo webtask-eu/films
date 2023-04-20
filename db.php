@@ -59,6 +59,7 @@ class DB {
                 return $rows;
             }
         }
+        echo $result ;
         return false;
     }
 
