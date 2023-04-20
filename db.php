@@ -29,9 +29,12 @@ class DB {
     }
 
     public function query($query, $params = array()) {
+
         // Подготавливаем запрос с помощью подготовленных выражений
         $statement = $this->connection->prepare($query);
         if (!$statement) {
+            // Обработка ошибки подготовки запроса
+            echo 'Prepare failed: ' . $this->connection->error;
             return false;
         }
     
@@ -45,21 +48,27 @@ class DB {
         $result = $statement->execute();
         $this->last_insert_id = $this->connection->insert_id;
     
+        // Если запрос выполнился успешно, получаем результат
         if ($result !== false) {
-            // Если запрос выполнился успешно, получаем количество затронутых строк
-            $affected_rows = $statement->affected_rows;
-            if ($affected_rows >= 0) {
-                return $affected_rows;
+            $result = $statement->get_result();
+            if ($result !== false) {
+                $rows = array();
+                while ($row = $result->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                return $rows;
             } else {
-                // Если количество затронутых строк неизвестно, возвращаем true
-                return true;
+                // Обработка ошибки получения результата
+                echo 'Get result failed: ' . $this->connection->error;
+                return false;
             }
         } else {
-            // Если запрос не выполнился, выводим сообщение об ошибке
+            // Обработка ошибки выполнения запроса
             echo 'Query failed: ' . $this->connection->error;
             return false;
         }
     }
+    
     
     
 
