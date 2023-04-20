@@ -52,3 +52,5 @@ echo 'Old password: <input type="password" name="oldPassword"><br>';
 echo 'New password: <input type="password" name="newPassword"><br>';
 echo '<input type="submit" value="Change password">';
 echo '</form>';
+
+echo '<a href="logout.php">Logout</a>';
