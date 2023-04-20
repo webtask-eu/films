@@ -29,12 +29,9 @@ class DB {
     }
 
     public function query($query, $params = array()) {
-
         // Подготавливаем запрос с помощью подготовленных выражений
         $statement = $this->connection->prepare($query);
         if (!$statement) {
-            // Обработка ошибки подготовки запроса
-            echo 'Prepare failed: ' . $this->connection->error;
             return false;
         }
     
@@ -48,26 +45,22 @@ class DB {
         $result = $statement->execute();
         $this->last_insert_id = $this->connection->insert_id;
     
-        // Если запрос выполнился успешно, получаем результат
         if ($result !== false) {
-            $result = $statement->get_result();
-            if ($result !== false) {
-                $rows = array();
-                while ($row = $result->fetch_assoc()) {
-                    $rows[] = $row;
-                }
-                return $rows;
+            // Если запрос выполнился успешно, получаем количество затронутых строк
+            $affected_rows = $statement->affected_rows;
+            if ($affected_rows >= 0) {
+                return $affected_rows;
             } else {
-                // Обработка ошибки получения результата
-                echo 'Get result failed: ' . $this->connection->error;
-                return false;
+                // Если количество затронутых строк неизвестно, возвращаем true
+                return true;
             }
         } else {
-            // Обработка ошибки выполнения запроса
+            // Если запрос не выполнился, выводим сообщение об ошибке
             echo 'Query failed: ' . $this->connection->error;
             return false;
         }
     }
+    
     
 
     public function getLastInsertId() {
