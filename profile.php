@@ -2,7 +2,6 @@
 require_once 'db.php';
 
 session_start();
-$_SESSION['email'] = $email;
 
 require_once 'controller.php';
 $controller = new Controller();
