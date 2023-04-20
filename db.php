@@ -46,15 +46,17 @@ class DB {
         $this->last_insert_id = $this->connection->insert_id;
 
         // Если запрос выполнился успешно, получаем результат
-        if ($result) {
+        $result = $statement->execute();
+        if ($result !== false) {
             $result = $statement->get_result();
-            $rows = array();
-            while ($row = $result->fetch_assoc()) {
-                $rows[] = $row;
+            if ($result !== false) {
+                $rows = array();
+                while ($row = $result->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                return $rows;
             }
-            return $rows;
         }
-
         return false;
     }
 
