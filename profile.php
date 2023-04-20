@@ -18,6 +18,8 @@ $user = $db->query('SELECT * FROM users WHERE id = ?', array($_SESSION['user_id'
 if (!$user) {
   die('Failed to get user info');
 }
+
+print_r($user);
 //$user = $user[0];
 
 // Выводим информацию о пользователе
