@@ -19,10 +19,7 @@ if (!$user) {
   die('Failed to get user info');
 }
 
-print_r($user);
-
-echo $_SESSION['user_id'];
-//$user = $user[0];
+$user = $user[0];
 
 // Выводим информацию о пользователе
 echo 'Welcome, ' . $user['id'] . '!<br>';
