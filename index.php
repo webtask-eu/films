@@ -5,6 +5,8 @@ $controller = new Controller();
 
 // Если пользователь авторизован, перенаправляем его на страницу профиля
 if ($controller->isLoggedIn()) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
     header('Location: profile.php');
     exit();
 }
