@@ -33,37 +33,42 @@ class DB {
         // Подготавливаем запрос с помощью подготовленных выражений
         $statement = $this->connection->prepare($query);
         if (!$statement) {
+            // Обработка ошибки подготовки запроса
+            echo 'Prepare failed: ' . $this->connection->error;
             return false;
         }
-
+    
         // Привязываем параметры к запросу
         if (count($params) > 0) {
             $types = str_repeat('s', count($params));
             $statement->bind_param($types, ...$params);
         }
-
+    
         // Выполняем запрос и сохраняем последний вставленный ID
         $result = $statement->execute();
         $this->last_insert_id = $this->connection->insert_id;
-
-
-
+    
         // Если запрос выполнился успешно, получаем результат
         if ($result !== false) {
             $result = $statement->get_result();
-            echo $result ;
             if ($result !== false) {
                 $rows = array();
                 while ($row = $result->fetch_assoc()) {
                     $rows[] = $row;
                 }
-               
                 return $rows;
+            } else {
+                // Обработка ошибки получения результата
+                echo 'Get result failed: ' . $this->connection->error;
+                return false;
             }
+        } else {
+            // Обработка ошибки выполнения запроса
+            echo 'Query failed: ' . $this->connection->error;
+            return false;
         }
-        
-        return false;
     }
+    
 
     public function getLastInsertId() {
         return $this->last_insert_id;
