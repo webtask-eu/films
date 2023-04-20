@@ -29,12 +29,11 @@ class DB {
     }
 
     public function query($query, $params = array()) {
-
         // Подготавливаем запрос с помощью подготовленных выражений
         $statement = $this->connection->prepare($query);
         if (!$statement) {
-            // Обработка ошибки подготовки запроса
-            echo 'Prepare failed: ' . $this->connection->error;
+            // В случае ошибки выводим сообщение
+            echo "Error preparing query: " . $this->connection->error;
             return false;
         }
     
@@ -44,30 +43,41 @@ class DB {
             $statement->bind_param($types, ...$params);
         }
     
-        // Выполняем запрос и сохраняем последний вставленный ID
+        // Выполняем запрос
         $result = $statement->execute();
-        $this->last_insert_id = $this->connection->insert_id;
     
-        // Если запрос выполнился успешно, получаем результат
-        if ($result !== false) {
-            $result = $statement->get_result();
-            if ($result !== false) {
+        // Если запрос SELECT выполнился успешно, получаем результат
+        if (strpos(strtoupper(trim($query)), 'SELECT') === 0) {
+            if ($result) {
+                $result = $statement->get_result();
                 $rows = array();
                 while ($row = $result->fetch_assoc()) {
                     $rows[] = $row;
                 }
                 return $rows;
             } else {
-                // Обработка ошибки получения результата
-                echo 'Get result failed: ' . $this->connection->error;
+                // В случае ошибки выводим сообщение
+                echo "Error executing query: " . $this->connection->error;
                 return false;
             }
-        } else {
-            // Обработка ошибки выполнения запроса
-            echo 'Query failed: ' . $this->connection->error;
-            return false;
         }
+    
+        // Если запрос INSERT выполнился успешно, возвращаем last_insert_id
+        if (strpos(strtoupper(trim($query)), 'INSERT') === 0) {
+            if ($result) {
+                $this->last_insert_id = $this->connection->insert_id;
+                return $this->last_insert_id;
+            } else {
+                // В случае ошибки выводим сообщение
+                echo "Error executing query: " . $this->connection->error;
+                return false;
+            }
+        }
+    
+        // В случае, если запрос не является ни SELECT, ни INSERT, возвращаем результат выполнения запроса
+        return $result;
     }
+    
     
     
     
