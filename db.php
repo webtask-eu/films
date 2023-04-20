@@ -45,7 +45,6 @@ class DB {
         $this->last_insert_id = $this->connection->insert_id;
 
         // Если запрос выполнился успешно, получаем результат
-        $result = $statement->execute();
         if ($result !== false) {
             $result = $statement->get_result();
             if ($result !== false) {
