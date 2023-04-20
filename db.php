@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 class DB {
@@ -43,6 +45,8 @@ class DB {
         // Выполняем запрос и сохраняем последний вставленный ID
         $result = $statement->execute();
         $this->last_insert_id = $this->connection->insert_id;
+
+        echo $result ;
 
         // Если запрос выполнился успешно, получаем результат
         if ($result !== false) {
