@@ -51,12 +51,13 @@ class DB {
         // Если запрос выполнился успешно, получаем результат
         if ($result !== false) {
             $result = $statement->get_result();
+            echo $result ;
             if ($result !== false) {
                 $rows = array();
                 while ($row = $result->fetch_assoc()) {
                     $rows[] = $row;
                 }
-                echo $rows ;
+               
                 return $rows;
             }
         }
