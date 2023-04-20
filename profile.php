@@ -23,7 +23,7 @@ echo $_SESSION['user_id'];
 //$user = $user[0];
 
 // Выводим информацию о пользователе
-echo 'Welcome, ' . $user['name'] . '!<br>';
+echo 'Welcome, ' . $user['id'] . '!<br>';
 echo 'Your email: ' . $user['email'] . '<br>';
 echo 'Your password: ' . $user['password'] . '<br>';
 
