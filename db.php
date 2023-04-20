@@ -56,10 +56,11 @@ class DB {
                 while ($row = $result->fetch_assoc()) {
                     $rows[] = $row;
                 }
+                echo $rows ;
                 return $rows;
             }
         }
-        echo $result ;
+        
         return false;
     }
 
