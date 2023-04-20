@@ -3,8 +3,11 @@ require_once 'db.php';
 
 session_start();
 
+require_once 'controller.php';
+$controller = new Controller();
+
 // Проверяем, авторизован ли пользователь
-if (!isAuthorized()) {
+if (!$controller->isLoggedIn()) {
   header('Location: index.php');
   exit();
 }
