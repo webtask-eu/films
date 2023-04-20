@@ -4,10 +4,10 @@ require_once 'controller.php';
 $controller = new Controller();
 
 // Если пользователь авторизован, перенаправляем его на страницу профиля
-/*if ($controller->isLoggedIn()) {
+if ($controller->isLoggedIn()) {
     header('Location: profile.php');
     exit();
-}*/
+}
 
 // Обработка регистрации
 if (isset($_POST['register'])) {
