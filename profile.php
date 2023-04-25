@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<form method="POST">
-  <input type="text" name="search">
-  <button type="submit">Search</button>
+<form method="post" action="add_movies.php">
+  <!-- форма поиска -->
+  <button type="submit">Add selected movies</button>
 </form>
