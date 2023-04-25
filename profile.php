@@ -80,6 +80,24 @@ if (isset($_GET['movie-search-input'])) {
     }
     $html .= '</ul>';
     echo $html;
+
+    // добавление фильма в профиль
+if ($_POST['action'] == 'add_movie') {
+  $movieId = $_POST['movie_id'];
+  $title = $_POST['title'];
+  $description = $_POST['description'];
+  $userId = $_SESSION['user_id'];
+
+// Проверяем, есть ли уже такой фильм в базе данных
+$result = $db->query("SELECT * FROM user_movies WHERE user_id = ? AND movie_id = ?", array($userId, $movieId));
+if ($result !== false && count($result) > 0) {
+  echo "Movie already added";
+} else {
+  // Добавляем фильм в базу данных
+  $db->query("INSERT INTO user_movies (user_id, movie_id) VALUES (?, ?)", array($userId, $movieId));
+  echo "Movie added successfully";
+}
+
 }
 
 
@@ -92,6 +110,39 @@ echo '</form>';
 echo '<a href="logout.php">Logout</a>';
 ?>
 
+<!-- скрипт для отправки запроса на добавление фильма в профиль -->
+<script>
+  $(document).ready(function() {
+    // обработчик нажатия кнопки "Add to My Collection"
+    $('#search-results').on('click', '.add-movie-btn', function(event) {
+      event.preventDefault();
+      var movieId = $(this).attr('data-movie-id');
+      var title = $(this).attr('data-movie-title');
+      var description = $(this).attr('data-movie-description');
+      $('#add-movie-id').val(movieId);
+      $('#add-movie-title').val(title);
+      $('#add-movie-description').val(description);
+      $('#add-movie-form').submit();
+    });
+
+    // обработчик отправки формы для добавления фильма в профиль
+    $('#add-movie-form').on('submit', function(event) {
+      event.preventDefault();
+      $.ajax({
+        url: 'profile.php',
+        type: 'post',
+        data: $('#add-movie-form').serialize(),
+        success: function(response) {
+          alert('Movie added to your collection!');
+        },
+        error: function(response) {
+          alert('Error adding movie to your collection. Please try again later.');
+        }
+      });
+    });
+  });
+</script>
+
 <div class="movie-search">
     <form id="movie-search-form">
         <label for="movie-search-input">Search for a movie:</label>
@@ -101,12 +152,31 @@ echo '<a href="logout.php">Logout</a>';
     <div id="movie-search-results"></div>
 </div>
 
-<form method="POST" action="create_collection.php">
-  <label for="collection_name">Название коллекции:</label>
-  <input type="text" name="collection_name" id="collection_name">
-  <button type="submit">Создать</button>
+<!-- добавляем форму для добавления фильма в профиль -->
+<form id="add-movie-form" method="post">
+  <input type="hidden" name="action" value="add_movie">
+  <input type="hidden" name="movie_id" id="add-movie-id">
+  <div class="form-group">
+    <label for="add-movie-title">Title:</label>
+    <input type="text" class="form-control" id="add-movie-title" name="title" readonly>
+  </div>
+  <div class="form-group">
+    <label for="add-movie-description">Description:</label>
+    <textarea class="form-control" id="add-movie-description" name="description" readonly></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add to My Collection</button>
 </form>
 
-<div>
-  <a href="create_collection_form.php">Создать новую коллекцию</a>
-</div>
+<!-- вставляем результаты поиска в таблицу -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Add to Collection</th>
+    </tr>
+  </thead>
+  <tbody id="search-results">
+  </tbody>
+</table>
+
