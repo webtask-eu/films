@@ -84,7 +84,7 @@ if (isset($_GET['movie-search-input'])) {
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $search = $_POST['search'];
-    $url = 'https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=' . urlencode($search);
+    $url = 'https://api.themoviedb.org/3/search/movie?api_key=fca80a35e9a4bccbf9a300c8e938e3e0&query=' . urlencode($search);
     $response = file_get_contents($url);
     $movies = json_decode($response, true)['results'];
   
@@ -117,7 +117,35 @@ echo '<a href="logout.php">Logout</a>';
 ?>
 
 
-<form action="add-movies.php" method="post">
-  <input type="text" name="search" placeholder="Search movies...">
-  <button type="submit">Search</button>
-</form>
+<div class="add-movie">
+  <h3>Add movie</h3>
+  <form method="POST">
+    <input type="text" name="search" placeholder="Search movies">
+    <button type="submit">Search</button>
+  </form>
+  <?php
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $search = $_POST['search'];
+    $url = 'https://api.themoviedb.org/3/search/movie?api_key=fca80a35e9a4bccbf9a300c8e938e3e0&query=' . urlencode($search);
+    $response = file_get_contents($url);
+    $movies = json_decode($response, true)['results'];
+
+    if (!empty($movies)) {
+      echo '<ul>';
+      foreach ($movies as $movie) {
+        echo '<li>';
+        echo '<input type="checkbox" name="movies[]" value="' . $movie['id'] . '"> ';
+        echo $movie['title'];
+        echo '</li>';
+      }
+      echo '</ul>';
+      echo '<button type="submit">Add selected movies</button>';
+    } else {
+      echo 'No movies found.';
+    }
+  }
+  ?>
+</div>
+
+
+
