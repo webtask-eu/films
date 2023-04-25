@@ -103,8 +103,7 @@ echo '<a href="logout.php">Logout</a>';
 </head>
 <body>
   <h1>User Profile</h1>
-  <form action="search.php">
-
+  <form>
     <label for="search">Search for movies:</label>
     <input type="text" id="search" name="search">
     <ul id="movies"></ul>
@@ -126,7 +125,7 @@ echo '<a href="logout.php">Logout</a>';
             // Если найдены фильмы, добавляем их в список
             if (data.length > 0) {
               $.each(data, function(index, movie) {
-                var checkbox = $('<input>').attr({
+                var checkbox = $('<input>', {
                   type: 'checkbox',
                   name: 'movies[]',
                   value: movie.id
@@ -150,7 +149,3 @@ echo '<a href="logout.php">Logout</a>';
   </script>
 </body>
 </html>
-
-
-
-
