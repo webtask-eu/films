@@ -48,6 +48,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+// Замените YOUR_API_KEY на свой API-ключ для The Movie Database API
+$api_key = 'fca80a35e9a4bccbf9a300c8e938e3e0';
+
+// Подключаем библиотеку для отправки HTTP-запросов
+require_once 'vendor/autoload.php';
+use GuzzleHttp\Client;
+
+// Получаем запрос на поиск фильмов
+if (isset($_GET['movie-search-input'])) {
+    $movie_name = $_GET['movie-search-input'];
+
+    // Создаем объект для отправки запросов
+    $client = new Client(['base_uri' => 'https://api.themoviedb.org/3/']);
+
+    // Отправляем запрос к The Movie Database API
+    $response = $client->request('GET', 'search/movie', [
+        'query' => [
+            'api_key' => $api_key,
+            'query' => $movie_name,
+        ],
+    ]);
+
+    // Получаем результаты поиска
+    $movies = json_decode($response->getBody(), true);
+
+    // Выводим результаты на страницу
+    $html = '<ul>';
+    foreach ($movies['results'] as $movie) {
+        $html .= '<li><a href="movie.php?id=' . $movie['id'] . '">' . $movie['title'] . '</a></li>';
+    }
+    $html .= '</ul>';
+    echo $html;
+}
+
+
 echo '<form method="post">';
 echo 'Old password: <input type="password" name="oldPassword"><br>';
 echo 'New password: <input type="password" name="newPassword"><br>';
@@ -55,3 +90,13 @@ echo '<input type="submit" value="Change password">';
 echo '</form>';
 
 echo '<a href="logout.php">Logout</a>';
+?>
+
+<div class="movie-search">
+    <form id="movie-search-form">
+        <label for="movie-search-input">Search for a movie:</label>
+        <input type="text" id="movie-search-input" name="movie-search-input">
+        <button type="submit">Search</button>
+    </form>
+    <div id="movie-search-results"></div>
+</div>
