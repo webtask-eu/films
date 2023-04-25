@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Замените YOUR_API_KEY на свой API-ключ для The Movie Database API
-$api_key = 'fca80a35e9a4bccbf9a300c8e938e3e0';
+$api_key = 'YOUR_API_KEY';
 
 // Подключаем библиотеку для отправки HTTP-запросов
 require_once 'vendor/autoload.php';
@@ -99,4 +99,14 @@ echo '<a href="logout.php">Logout</a>';
         <button type="submit">Search</button>
     </form>
     <div id="movie-search-results"></div>
+</div>
+
+<form method="POST" action="create_collection.php">
+  <label for="collection_name">Название коллекции:</label>
+  <input type="text" name="collection_name" id="collection_name">
+  <button type="submit">Создать</button>
+</form>
+
+<div>
+  <a href="create_collection_form.php">Создать новую коллекцию</a>
 </div>
