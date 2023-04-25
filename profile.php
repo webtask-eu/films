@@ -92,3 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 }
 ?>
+
+<form method="POST">
+  <input type="text" name="search">
+  <button type="submit">Search</button>
+</form>
