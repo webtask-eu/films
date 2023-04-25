@@ -80,6 +80,7 @@ if (isset($_GET['movie-search-input'])) {
     }
     $html .= '</ul>';
     echo $html;
+  }
 
     // добавление фильма в профиль
 if ($_POST['action'] == 'add_movie') {
