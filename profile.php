@@ -144,40 +144,83 @@ echo '<a href="logout.php">Logout</a>';
   });
 </script>
 
-<div class="movie-search">
-    <form id="movie-search-form">
-        <label for="movie-search-input">Search for a movie:</label>
-        <input type="text" id="movie-search-input" name="movie-search-input">
-        <button type="submit">Search</button>
-    </form>
-    <div id="movie-search-results"></div>
-</div>
+<?php
 
-<!-- добавляем форму для добавления фильма в профиль -->
-<form id="add-movie-form" method="post">
-  <input type="hidden" name="action" value="add_movie">
-  <input type="hidden" name="movie_id" id="add-movie-id">
-  <div class="form-group">
-    <label for="add-movie-title">Title:</label>
-    <input type="text" class="form-control" id="add-movie-title" name="title" readonly>
-  </div>
-  <div class="form-group">
-    <label for="add-movie-description">Description:</label>
-    <textarea class="form-control" id="add-movie-description" name="description" readonly></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Add to My Collection</button>
-</form>
+require_once 'controller.php';
+$controller = new Controller();
 
-<!-- вставляем результаты поиска в таблицу -->
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Add to Collection</th>
-    </tr>
-  </thead>
-  <tbody id="search-results">
-  </tbody>
-</table>
+// Обрабатываем POST-запрос при нажатии на кнопку "Добавить"
+if (isset($_POST['add_movie'])) {
+    // Получаем данные фильма из POST-запроса
+    $movie_id = $_POST['movie_id'];
+    $title = $_POST['title'];
+    $overview = $_POST['overview'];
+    $poster_path = $_POST['poster_path'];
+    $release_date = $_POST['release_date'];
 
+    // Добавляем фильм в профиль пользователя
+    $result = $controller->addMovieToCollection($_SESSION['user_id'], $movie_id, $title, $overview, $poster_path, $release_date);
+
+    // Выводим сообщение об успешном добавлении фильма или об ошибке
+    if ($result) {
+        $success_message = 'Фильм успешно добавлен в коллекцию!';
+    } else {
+        $error_message = 'Произошла ошибка при добавлении фильма в коллекцию. Попробуйте ещё раз.';
+    }
+}
+
+// Выводим найденные фильмы
+if (isset($_GET['query'])) {
+    $query = $_GET['query'];
+
+    // Получаем список найденных фильмов с помощью The Movie Database API
+    $url = 'https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&language=ru-RU&query=' . urlencode($query);
+    $response = file_get_contents($url);
+    $result = json_decode($response, true);
+
+    if ($result['results']) {
+        echo '<h2>Результаты поиска</h2>';
+        foreach ($result['results'] as $movie) {
+            echo '<div class="card mb-3">';
+            echo '<div class="row no-gutters">';
+            echo '<div class="col-md-2">';
+            if ($movie['poster_path']) {
+                $poster_url = 'https://image.tmdb.org/t/p/w185' . $movie['poster_path'];
+                echo '<img src="' . $poster_url . '" class="card-img" alt="' . htmlspecialchars($movie['title']) . '">';
+            } else {
+                echo '<div class="no-poster">Нет постера</div>';
+            }
+            echo '</div>';
+            echo '<div class="col-md-10">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . htmlspecialchars($movie['title']) . '</h5>';
+            echo '<p class="card-text">' . htmlspecialchars($movie['overview']) . '</p>';
+            echo '<p class="card-text"><small class="text-muted">Выход: ' . htmlspecialchars($movie['release_date']) . '</small></p>';
+            echo '<form method="POST">';
+            echo '<input type="hidden" name="movie_id" value="' . htmlspecialchars($movie['id']) . '">';
+            echo '<input type="hidden" name="title" value="' . htmlspecialchars($movie['title']) . '">';
+            echo '<input type="hidden" name="overview" value="' . htmlspecialchars($movie['overview']) . '">';
+            echo '<input type="hidden" name="poster_path" value="' . htmlspecialchars($movie['poster_path']) . '">';
+          
+?>
+
+<div class="search-results">
+            <ul>
+              <?php foreach ($movies as $movie) { ?>
+                <li>
+                  <h4><?php echo htmlspecialchars($movie['title']); ?></h4>
+                  <p><?php echo htmlspecialchars($movie['overview']); ?></p>
+                  <?php if ($movie['poster_path']) { ?>
+                    <img src="https://image.tmdb.org/t/p/w500/<?php echo htmlspecialchars($movie['poster_path']); ?>" alt="">
+                  <?php } ?>
+                  <form action="add-movie.php" method="post">
+                    <input type="hidden" name="tmdb_id" value="<?php echo $movie['id']; ?>">
+                    <input type="hidden" name="title" value="<?php echo htmlspecialchars($movie['title']); ?>">
+                    <input type="hidden" name="overview" value="<?php echo htmlspecialchars($movie['overview']); ?>">
+                    <input type="hidden" name="poster_path" value="<?php echo htmlspecialchars($movie['poster_path']); ?>">
+                    <button type="submit" name="add_movie">Добавить</button>
+                  </form>
+                </li>
+              <?php } ?>
+            </ul>
+          </div>
