@@ -60,33 +60,23 @@ echo '<a href="logout.php">Logout</a>';
 ?>
 
 
-<?php 
 
-// Замените YOUR_API_KEY на свой API-ключ для The Movie Database API
-$api_key = 'fca80a35e9a4bccbf9a300c8e938e3e0';
-
+<?php
 require_once 'vendor/autoload.php';
+
 use GuzzleHttp\Client;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $search = $_POST['search'];
-  
-  // Создаем клиент GuzzleHttp для отправки запросов к API The Movie Database
-  $client = new Client([
-    'base_uri' => 'https://api.themoviedb.org/3/',
+  $client = new Client(['base_uri' => 'https://api.themoviedb.org/3/']);
+  $response = $client->request('GET', 'search/movie', [
+    'query' => [
+      'api_key' => 'fca80a35e9a4bccbf9a300c8e938e3e0',
+      'query' => $search
+    ]
   ]);
-  
-  // Формируем URL-адрес для запроса поиска фильмов
-  $url = 'search/movie?api_key=fca80a35e9a4bccbf9a300c8e938e3e0&query=' . urlencode($search);
-  
-  // Отправляем запрос к API и получаем ответ
-  $response = $client->request('GET', $url);
-  $data = json_decode($response->getBody()->getContents(), true);
-  
-  // Получаем список найденных фильмов
-  $movies = $data['results'];
-  
-  // Выводим список найденных фильмов
+  $movies = json_decode($response->getBody(), true)['results'];
+
   if (!empty($movies)) {
     echo '<ul>';
     foreach ($movies as $movie) {
@@ -101,5 +91,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo 'No movies found.';
   }
 }
-
 ?>
