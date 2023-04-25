@@ -103,7 +103,8 @@ echo '<a href="logout.php">Logout</a>';
 </head>
 <body>
   <h1>User Profile</h1>
-  <form>
+  <form action="search.php">
+
     <label for="search">Search for movies:</label>
     <input type="text" id="search" name="search">
     <ul id="movies"></ul>
