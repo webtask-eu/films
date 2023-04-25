@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Замените YOUR_API_KEY на свой API-ключ для The Movie Database API
-$api_key = 'YOUR_API_KEY';
+$api_key = 'fca80a35e9a4bccbf9a300c8e938e3e0';
 
 // Подключаем библиотеку для отправки HTTP-запросов
 require_once 'vendor/autoload.php';
