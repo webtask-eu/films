@@ -84,7 +84,7 @@ if (isset($_GET['movie-search-input'])) {
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $search = $_POST['search'];
-    $url = 'https://api.themoviedb.org/3/search/movie?api_key=fca80a35e9a4bccbf9a300c8e938e3e0&query=' . urlencode($search);
+    $url = 'https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=' . urlencode($search);
     $response = file_get_contents($url);
     $movies = json_decode($response, true)['results'];
   
@@ -101,7 +101,10 @@ if (isset($_GET['movie-search-input'])) {
     } else {
       echo 'No movies found.';
     }
+  } else {
+    echo 'Invalid request.';
   }
+  
 
 
 echo '<form method="post">';
