@@ -48,6 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+
+
+echo '<form method="post">';
+echo 'Old password: <input type="password" name="oldPassword"><br>';
+echo 'New password: <input type="password" name="newPassword"><br>';
+echo '<input type="submit" value="Change password">';
+echo '</form>';
+
+echo '<a href="logout.php">Logout</a>';
+?>
+
+
+<? 
+
 // Замените YOUR_API_KEY на свой API-ключ для The Movie Database API
 $api_key = 'fca80a35e9a4bccbf9a300c8e938e3e0';
 
@@ -88,17 +102,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 }
 
-
-
-
-  
-
-
-echo '<form method="post">';
-echo 'Old password: <input type="password" name="oldPassword"><br>';
-echo 'New password: <input type="password" name="newPassword"><br>';
-echo '<input type="submit" value="Change password">';
-echo '</form>';
-
-echo '<a href="logout.php">Logout</a>';
 ?>
