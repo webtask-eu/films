@@ -14,18 +14,29 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     $db = new DB();
 
-    // Получаем пользователя с введенным адресом электронной почты
     $user = $db->query('SELECT * FROM users WHERE email = ?', array($email));
 
-    // Проверяем, существует ли пользователь и совпадает ли пароль
-    if ($user && password_verify($password, $user['password'])) {
+    // Добавим проверку, чтобы увидеть, что запрос возвращает
+    if ($user === false) {
+        echo 'SQL query failed. Please check your database connection and SQL statement.';
+        exit();
+    } elseif (empty($user)) {
+        echo 'No user found with the provided email.';
+        exit();
+    }
+
+    if (password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
 
         header('Location: index.php');
         exit();
     } else {
-        echo 'Login failed. Please check your email and password.';
+        echo 'Password verification failed. Please check your password.';
+        exit();
     }
+} else {
+    echo 'Login failed. Please check your email and password.';
+    exit();
 }
 ?>
 
