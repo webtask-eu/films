@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (!empty($_POST)) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -16,7 +16,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     $user = $db->query('SELECT * FROM users WHERE email = ?', array($email));
 
-    // Добавим проверку, чтобы увидеть, что запрос возвращает
     if ($user === false) {
         echo 'SQL query failed. Please check your database connection and SQL statement.';
         exit();
@@ -36,7 +35,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     }
 } else {
     echo 'Login failed. Please check your email and password.';
-    exit();
 }
 ?>
 
